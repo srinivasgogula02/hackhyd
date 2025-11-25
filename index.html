@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACK HYD | The Hyderabad Takeover</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hyd-chai': '#FFD700', /* Gold */
+                        'hyd-teal': '#00F0FF',
+                        'hyd-pink': '#FF0055',
+                        'hyd-dark': '#030014', 
+                        'hyd-surface': '#0F0821',
+                    },
+                    fontFamily: {
+                        'display': ['"Bebas Neue"', 'sans-serif'],
+                        'tech': ['"JetBrains Mono"', 'monospace'],
+                        'body': ['"Rajdhani"', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Settings */
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #030014;
+            color: #eee;
+            overflow-x: hidden;
+        }
+
+        /* Spotlight Effect */
+        .spotlight-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0; left: 0;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(255, 255, 255, 0.06),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.3); }
+
+        /* Glitch Text */
+        .glitch-wrapper { position: relative; display: inline-block; }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.8;
+        }
+        .glitch-text::before {
+            color: #FF0055; z-index: -1;
+            animation: glitch-anim-1 3s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            color: #00F0FF; z-index: -2;
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 0); }
+            100% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 0); }
+            100% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 0); }
+        }
+
+        /* Marquee */
+        .marquee-content { display: inline-block; animation: marquee 25s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Scanlines */
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            position: fixed; inset: 0; pointer-events: none; z-index: 50;
+        }
+    </style>
+</head>
+<body class="selection:bg-hyd-pink selection:text-white font-body relative" onmousemove="handleMouseMove(event)">
+
+    <div class="scanlines"></div>
+
+    <nav class="fixed w-full z-40 top-0 border-b border-white/5 bg-hyd-dark/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="relative w-8 h-8 md:w-10 md:h-10 border border-hyd-pink flex items-center justify-center bg-black">
+                    <span class="font-display text-lg md:text-xl text-white">HH</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-tech text-white font-bold tracking-tighter leading-none">HACK_HYD</span>
+                    <span class="font-tech text-[10px] text-hyd-teal leading-none">v2.0</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex gap-8 font-tech text-xs md:text-sm tracking-wide">
+                <a href="#about" class="text-gray-400 hover:text-hyd-teal transition-colors">/ABOUT</a>
+                <a href="#tracks" class="text-gray-400 hover:text-hyd-teal transition-colors">/TRACKS</a>
+                <a href="sponsors.html" class="text-gray-400 hover:text-hyd-teal transition-colors">/PARTNERS</a>
+            </div>
+
+            <button class="relative group px-4 md:px-6 py-2 border border-hyd-pink bg-hyd-pink/10 hover:bg-hyd-pink transition-all duration-300">
+                <span class="relative z-10 font-display text-sm md:text-lg tracking-wide group-hover:text-black transition-colors">JOIN WAITLIST</span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        
+        <div class="absolute bottom-0 right-0 w-[85%] md:w-[60%] lg:w-[45%] opacity-40 pointer-events-none z-0">
+             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPfN_rKpqpufpgonOLLUy2kcaq-R9xMU2APWRgmVtEJrk8Bd3UutFwH4H3ubj_b8pZsuRJ3YhEmZ6PLAtIf50znGtRv1e081pQKye1B0Uqga74EZdR4z8i1CsGQ7Mj2UlNDg0KOOLP2QM9SYi2QzijgdOEdu4M4C69Qt3buB3gw5o_4qIwG4SOyHkfjRA/s320/pngwing.com.png" 
+                  alt="Charminar" 
+                  class="w-full h-auto object-contain object-right-bottom drop-shadow-[0_0_20px_rgba(255,0,85,0.4)]">
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-6xl mx-auto mt-10">
+            <div class="flex justify-center mb-6">
+                <div class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-hyd-teal opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-hyd-teal"></span>
+                    </span>
+                    <span class="font-tech text-[10px] md:text-xs text-gray-300 tracking-widest uppercase">Coming Soon to Hyderabad</span>
+                </div>
+            </div>
+            
+            <div class="glitch-wrapper mb-6">
+                <h1 class="text-6xl md:text-[9rem] leading-none font-display uppercase text-white glitch-text" data-text="HACK HYD">
+                    HACK HYD
+                </h1>
+            </div>
+
+            <p class="font-tech text-gray-400 text-base md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed px-4">
+                Code the <span class="text-hyd-chai font-bold">Heritage</span>. Deploy the <span class="text-hyd-teal font-bold">Future</span>. <br>
+                The biggest hackathon in the City of Pearls.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-12">
+                 <div class="bg-white/5 border border-white/10 p-4 rounded-lg backdrop-blur-sm">
+                    <p class="font-tech text-xs text-gray-500 mb-1">PRIZE POOL</p>
+                    <p class="font-display text-2xl text-hyd-chai">₹5 Lakh+</p>
+                </div>
+                 <div class="bg-white/5 border border-white/10 p-4 rounded-lg backdrop-blur-sm">
+                    <p class="font-tech text-xs text-gray-500 mb-1">ADMISSION</p>
+                    <p class="font-display text-2xl text-white">FREE</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="py-3 bg-hyd-chai border-y border-black marquee-container overflow-hidden z-20 relative">
+        <div class="marquee-content font-display text-black text-xl tracking-widest flex items-center gap-8">
+            <span>CHAI // CODE // CULTURE</span><span>★</span><span>BUILD FOR HYDERABAD</span><span>★</span><span>36 HOURS NON-STOP</span><span>★</span>
+            <span>CHAI // CODE // CULTURE</span><span>★</span><span>BUILD FOR HYDERABAD</span><span>★</span><span>36 HOURS NON-STOP</span><span>★</span>
+            <span>CHAI // CODE // CULTURE</span><span>★</span><span>BUILD FOR HYDERABAD</span><span>★</span><span>36 HOURS NON-STOP</span>
+        </div>
+    </div>
+
+    <section id="tracks" class="py-20 relative px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-12 md:mb-16">
+                <h2 class="font-display text-4xl md:text-6xl text-white mb-2">The <span class="text-hyd-teal">Arenas</span></h2>
+                <p class="font-tech text-gray-400">Choose your battlefield. Prove your code.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="spotlight-card p-6 md:p-8 rounded-xl group">
+                    <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-hyd-teal">
+                        <i data-lucide="brain-circuit"></i>
+                    </div>
+                    <h3 class="font-display text-2xl md:text-3xl text-white mb-3">AI & Agents</h3>
+                    <p class="font-body text-gray-400 leading-relaxed">Build intelligent agents. Solve real problems with LLMs.</p>
+                </div>
+
+                <div class="spotlight-card p-6 md:p-8 rounded-xl group">
+                    <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-hyd-teal">
+                        <i data-lucide="blocks"></i>
+                    </div>
+                    <h3 class="font-display text-2xl md:text-3xl text-white mb-3">Web3 & DeFi</h3>
+                    <p class="font-body text-gray-400 leading-relaxed">Decentralized finance and dApps. If it's on-chain, it's in.</p>
+                </div>
+
+                <div class="spotlight-card p-6 md:p-8 rounded-xl group border-hyd-pink/50 bg-hyd-pink/5">
+                    <div class="w-12 h-12 bg-hyd-pink/10 rounded-lg flex items-center justify-center mb-6 text-hyd-pink">
+                        <i data-lucide="music"></i>
+                    </div>
+                    <h3 class="font-display text-2xl md:text-3xl text-white mb-3">Vibe Coding</h3>
+                    <p class="font-body text-gray-300 leading-relaxed">No utility? No problem. Build quirky, fun, artistic apps. Just vibes.</p>
+                </div>
+
+                <div class="spotlight-card p-6 md:p-8 rounded-xl group">
+                    <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-hyd-teal">
+                        <i data-lucide="sprout"></i>
+                    </div>
+                    <h3 class="font-display text-2xl md:text-3xl text-white mb-3">Freshers Alliance</h3>
+                    <p class="font-body text-gray-400 leading-relaxed">Exclusive for 1st/2nd years. Dedicated mentors available.</p>
+                </div>
+
+                <div class="spotlight-card p-6 md:p-8 rounded-xl flex items-center justify-center border-dashed border-white/10 opacity-60">
+                    <div class="text-center">
+                        <i data-lucide="lock" class="mx-auto mb-2 text-gray-500"></i>
+                        <h3 class="font-display text-xl text-gray-500">Track TBD</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sponsors" class="py-20 bg-hyd-surface border-y border-white/5 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="font-display text-4xl md:text-6xl text-white mb-4">Our <span class="text-hyd-chai">Backers</span></h2>
+            <p class="font-tech text-gray-400 mb-12">Fueling the innovation engine of Hyderabad.</p>
+            
+            <div class="mb-12">
+                <div class="inline-flex items-center gap-2 mb-4">
+                    <i data-lucide="crown" class="w-4 h-4 text-hyd-chai"></i>
+                    <p class="font-tech text-xs text-hyd-chai tracking-widest uppercase">Title Sponsor</p>
+                </div>
+                <a href="sponsors.html" class="block max-w-2xl mx-auto h-32 md:h-48 border border-hyd-chai/30 bg-hyd-chai/5 rounded-xl flex flex-col items-center justify-center group hover:bg-hyd-chai/10 transition-all cursor-pointer relative overflow-hidden">
+                    <span class="font-display text-4xl md:text-5xl text-gray-600 group-hover:text-hyd-chai transition-colors">SLOT OPEN</span>
+                    <span class="font-tech text-xs text-gray-500 mt-2 group-hover:text-hyd-chai/70">Become the Face of Hack Hyd</span>
+                </a>
+            </div>
+
+            <div class="mb-12">
+                <div class="inline-flex items-center gap-2 mb-4">
+                    <i data-lucide="zap" class="w-4 h-4 text-hyd-pink"></i>
+                    <p class="font-tech text-xs text-hyd-pink tracking-widest uppercase">Track Partners</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <a href="sponsors.html" class="h-24 border border-hyd-pink/30 bg-hyd-pink/5 rounded-lg flex items-center justify-center group hover:bg-hyd-pink/10 transition-all">
+                        <span class="font-display text-xl text-gray-600 group-hover:text-hyd-pink">SLOT OPEN</span>
+                    </a>
+                    <a href="sponsors.html" class="h-24 border border-hyd-pink/30 bg-hyd-pink/5 rounded-lg flex items-center justify-center group hover:bg-hyd-pink/10 transition-all">
+                        <span class="font-display text-xl text-gray-600 group-hover:text-hyd-pink">SLOT OPEN</span>
+                    </a>
+                    <a href="sponsors.html" class="h-24 border border-hyd-pink/30 bg-hyd-pink/5 rounded-lg flex items-center justify-center group hover:bg-hyd-pink/10 transition-all">
+                        <span class="font-display text-xl text-gray-600 group-hover:text-hyd-pink">SLOT OPEN</span>
+                    </a>
+                    <a href="sponsors.html" class="h-24 border border-hyd-pink/30 bg-hyd-pink/5 rounded-lg flex items-center justify-center group hover:bg-hyd-pink/10 transition-all">
+                        <span class="font-display text-xl text-gray-600 group-hover:text-hyd-pink">SLOT OPEN</span>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div class="inline-flex items-center gap-2 mb-4">
+                    <i data-lucide="briefcase" class="w-4 h-4 text-hyd-teal"></i>
+                    <p class="font-tech text-xs text-hyd-teal tracking-widest uppercase">Hiring Partners</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <a href="sponsors.html" class="h-16 border border-hyd-teal/20 bg-hyd-teal/5 rounded flex items-center justify-center group hover:bg-hyd-teal/10 transition-all">
+                        <span class="font-display text-lg text-gray-700 group-hover:text-hyd-teal">OPEN</span>
+                    </a>
+                    <a href="sponsors.html" class="h-16 border border-hyd-teal/20 bg-hyd-teal/5 rounded flex items-center justify-center group hover:bg-hyd-teal/10 transition-all">
+                        <span class="font-display text-lg text-gray-700 group-hover:text-hyd-teal">OPEN</span>
+                    </a>
+                    <a href="sponsors.html" class="h-16 border border-hyd-teal/20 bg-hyd-teal/5 rounded flex items-center justify-center group hover:bg-hyd-teal/10 transition-all">
+                        <span class="font-display text-lg text-gray-700 group-hover:text-hyd-teal">OPEN</span>
+                    </a>
+                    <a href="sponsors.html" class="h-16 border border-hyd-teal/20 bg-hyd-teal/5 rounded flex items-center justify-center group hover:bg-hyd-teal/10 transition-all">
+                        <span class="font-display text-lg text-gray-700 group-hover:text-hyd-teal">OPEN</span>
+                    </a>
+                    <a href="sponsors.html" class="h-16 border border-hyd-teal/20 bg-hyd-teal/5 rounded flex items-center justify-center group hover:bg-hyd-teal/10 transition-all">
+                        <span class="font-display text-lg text-gray-700 group-hover:text-hyd-teal">OPEN</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <a href="sponsors.html" class="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-display text-xl hover:bg-hyd-teal hover:scale-105 transition-all duration-300">
+                    BECOME A SPONSOR <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black border-t border-white/10 py-12 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <h2 class="font-display text-3xl text-white">HACK <span class="text-hyd-teal">HYD</span></h2>
+                <p class="font-tech text-xs text-gray-500 mt-2">© 2025 HACK HYD ORG. ALL RIGHTS RESERVED.</p>
+            </div>
+            
+            <div class="flex gap-6">
+                <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function handleMouseMove(e) {
+            const cards = document.getElementsByClassName("spotlight-card");
+            for(const card of cards) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            }
+        }
+    </script>
+</body>
+</html>
