@@ -1,1 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsors | HACK HYD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hyd-chai': '#FFD700', /* Gold */
+                        'hyd-teal': '#00F0FF',
+                        'hyd-pink': '#FF0055',
+                        'hyd-dark': '#030014', 
+                        'hyd-surface': '#0F0821',
+                    },
+                    fontFamily: {
+                        'display': ['"Bebas Neue"', 'sans-serif'],
+                        'tech': ['"JetBrains Mono"', 'monospace'],
+                        'body': ['"Rajdhani"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Settings */
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #030014;
+            color: #eee;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.05) 0%, transparent 50%);
+        }
+
+        /* Spotlight Effect */
+        .spotlight-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0; left: 0;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y),
+                rgba(255, 255, 255, 0.06),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-5px); }
+
+        /* Scanlines */
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            position: fixed; inset: 0; pointer-events: none; z-index: 50;
+        }
+
+        /* Glitch Text */
+        .glitch-wrapper { position: relative; display: inline-block; }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.8;
+        }
+        .glitch-text::before {
+            color: #FF0055; z-index: -1;
+            animation: glitch-anim-1 3s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            color: #00F0FF; z-index: -2;
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 0); }
+            100% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 0); }
+            100% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 0); }
+        }
+    </style>
+</head>
+<body class="selection:bg-hyd-pink selection:text-white font-body relative" onmousemove="handleMouseMove(event)">
+
+    <div class="scanlines"></div>
+
+    <nav class="fixed w-full z-40 top-0 border-b border-white/5 bg-hyd-dark/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="relative w-8 h-8 border border-hyd-pink flex items-center justify-center bg-black hover:bg-hyd-pink/20 transition">
+                    <i data-lucide="arrow-left" class="w-4 h-4 text-white"></i>
+                </a>
+                <div class="flex flex-col">
+                    <span class="font-tech text-white font-bold tracking-tighter leading-none">BACK_TO_HOME</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:block font-tech text-xs text-gray-500">
+                // PARTNERSHIP_DECK_V2.0
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-16 px-4 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
+            
+            <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-hyd-teal/10 border border-hyd-teal/20">
+                <span class="w-2 h-2 rounded-full bg-hyd-teal animate-pulse"></span>
+                <span class="font-tech text-xs text-hyd-teal tracking-widest uppercase">Invest in Talent</span>
+            </div>
+            
+            <div class="glitch-wrapper mb-6">
+                <h1 class="text-4xl md:text-8xl leading-none font-display uppercase text-white glitch-text" data-text="DEPLOY YOUR BRAND">
+                    DEPLOY YOUR BRAND
+                </h1>
+            </div>
+            
+            <p class="font-tech text-gray-400 text-base md:text-xl max-w-2xl text-center">
+                Hyderabad's largest student-only hackathon. <br class="hidden md:block">
+                We filter the noise. You hire the builders.
+            </p>
+        </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-4 mb-20">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="spotlight-card p-4 md:p-6 rounded-lg text-center bg-white/5 backdrop-blur-sm">
+                <p class="font-display text-3xl md:text-4xl text-hyd-teal">300+</p>
+                <p class="font-tech text-[10px] md:text-xs text-gray-500 uppercase tracking-widest">Developers</p>
+            </div>
+            <div class="spotlight-card p-4 md:p-6 rounded-lg text-center bg-white/5 backdrop-blur-sm">
+                <p class="font-display text-3xl md:text-4xl text-hyd-pink">100%</p>
+                <p class="font-tech text-[10px] md:text-xs text-gray-500 uppercase tracking-widest">Student Talent</p>
+            </div>
+            <div class="spotlight-card p-4 md:p-6 rounded-lg text-center bg-white/5 backdrop-blur-sm">
+                <p class="font-display text-3xl md:text-4xl text-hyd-chai">PAN INDIA</p>
+                <p class="font-tech text-[10px] md:text-xs text-gray-500 uppercase tracking-widest">Reach</p>
+            </div>
+            <div class="spotlight-card p-4 md:p-6 rounded-lg text-center bg-white/5 backdrop-blur-sm">
+                <p class="font-display text-3xl md:text-4xl text-white">₹5L+</p>
+                <p class="font-tech text-[10px] md:text-xs text-gray-500 uppercase tracking-widest">Prize Value</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="px-4 pb-24">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+
+            <div class="spotlight-card p-8 rounded-xl border-t-4 border-t-hyd-teal bg-gradient-to-b from-hyd-teal/5 to-transparent order-2 md:order-1">
+                <div class="mb-6">
+                    <h3 class="font-display text-3xl text-white mb-2">HIRING PARTNER</h3>
+                    <div class="flex items-baseline gap-1">
+                        <span class="font-display text-4xl text-hyd-teal">₹20,000</span>
+                    </div>
+                    <p class="font-tech text-xs text-gray-500 mt-2">// FOR STARTUPS & AGENCIES</p>
+                </div>
+
+                <ul class="space-y-4 mb-8 font-tech text-sm text-gray-300">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-4 h-4 text-hyd-teal mt-0.5 flex-shrink-0"></i>
+                        <span>10 Slots Only</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="database" class="w-4 h-4 text-hyd-teal mt-0.5 flex-shrink-0"></i>
+                        <span>Full Resume Database Access</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="zap" class="w-4 h-4 text-hyd-teal mt-0.5 flex-shrink-0"></i>
+                        <span>Fast-Track Interview Rights</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="image" class="w-4 h-4 text-hyd-teal mt-0.5 flex-shrink-0"></i>
+                        <span>Logo on Footer</span>
+                    </li>
+                </ul>
+
+                <a href="mailto:sponsors@hackhyd.com?subject=Hiring Partner Inquiry" class="block w-full py-3 border border-hyd-teal/50 text-hyd-teal font-display text-center text-xl hover:bg-hyd-teal hover:text-black transition-all">
+                    SELECT HIRING
+                </a>
+            </div>
+
+            <div class="spotlight-card p-8 rounded-xl border border-hyd-pink bg-gradient-to-b from-hyd-pink/10 to-transparent transform md:-translate-y-4 relative z-10 order-1 md:order-2 shadow-lg shadow-hyd-pink/10">
+                
+                <div class="absolute top-0 right-0 bg-hyd-pink text-white font-tech text-[10px] px-3 py-1 uppercase tracking-widest">
+                    Best Value
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-display text-3xl text-white mb-2">TRACK SPONSOR</h3>
+                    <div class="flex items-baseline gap-1">
+                        <span class="font-display text-5xl text-hyd-pink">₹40,000</span>
+                    </div>
+                    <p class="font-tech text-xs text-gray-400 mt-2">// OWN A CATEGORY (AI, WEB3, ETC)</p>
+                </div>
+
+                <ul class="space-y-4 mb-8 font-tech text-sm text-gray-200">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-hyd-pink mt-0.5 flex-shrink-0"></i>
+                        <span class="font-bold text-white">Everything in Hiring Tier</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mic" class="w-4 h-4 text-hyd-pink mt-0.5 flex-shrink-0"></i>
+                        <span>30-min Technical Workshop</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="trophy" class="w-4 h-4 text-hyd-pink mt-0.5 flex-shrink-0"></i>
+                        <span>You Present the Track Prize</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="users" class="w-4 h-4 text-hyd-pink mt-0.5 flex-shrink-0"></i>
+                        <span>2 Mentors Allowed on Floor</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="box" class="w-4 h-4 text-hyd-pink mt-0.5 flex-shrink-0"></i>
+                        <span>Product Demo Booth</span>
+                    </li>
+                </ul>
+
+                <a href="mailto:sponsors@hackhyd.com?subject=Track Sponsor Inquiry" class="block w-full py-4 bg-hyd-pink text-white font-display text-center text-2xl hover:bg-white hover:text-hyd-pink transition-all shadow-[0_0_20px_rgba(255,0,85,0.3)] hover:shadow-[0_0_30px_rgba(255,0,85,0.6)]">
+                    OWN A TRACK
+                </a>
+            </div>
+
+            <div class="spotlight-card p-8 rounded-xl border-t-4 border-t-hyd-chai bg-gradient-to-b from-hyd-chai/5 to-transparent order-3">
+                <div class="mb-6">
+                    <h3 class="font-display text-3xl text-white mb-2">TITLE SPONSOR</h3>
+                    <div class="flex items-baseline gap-1">
+                        <span class="font-display text-4xl text-hyd-chai">₹1.5 L</span>
+                    </div>
+                    <p class="font-tech text-xs text-gray-500 mt-2">// EXCLUSIVE AUTHORITY</p>
+                </div>
+
+                <ul class="space-y-4 mb-8 font-tech text-sm text-gray-300">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="crown" class="w-4 h-4 text-hyd-chai mt-0.5 flex-shrink-0"></i>
+                        <span>"Presented By [Your Brand]"</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="megaphone" class="w-4 h-4 text-hyd-chai mt-0.5 flex-shrink-0"></i>
+                        <span>Keynote Speaking Slot (15m)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="gavel" class="w-4 h-4 text-hyd-chai mt-0.5 flex-shrink-0"></i>
+                        <span>Head Jury Position</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-hyd-chai mt-0.5 flex-shrink-0"></i>
+                        <span>Prime Booth Location</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="user-check" class="w-4 h-4 text-hyd-chai mt-0.5 flex-shrink-0"></i>
+                        <span>1st Right of Refusal on Hires</span>
+                    </li>
+                </ul>
+
+                <a href="mailto:sponsors@hackhyd.com?subject=Title Sponsor Inquiry" class="block w-full py-3 border border-hyd-chai/50 text-hyd-chai font-display text-center text-xl hover:bg-hyd-chai hover:text-black transition-all">
+                    BECOME LEGEND
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="border-t border-white/5 py-12 text-center">
+        <p class="font-display text-2xl text-white mb-2">NEED SOMETHING CUSTOM?</p>
+        <p class="font-tech text-gray-500 text-sm mb-6">We can tailor a package for your API or hiring needs.</p>
+        <a href="mailto:contact@hackhyd.com" class="text-hyd-teal font-tech hover:text-white transition-colors underline decoration-dotted underline-offset-4">
+            contact@hackhyd.com
+        </a>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function handleMouseMove(e) {
+            const cards = document.getElementsByClassName("spotlight-card");
+            for(const card of cards) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            }
+        }
+    </script>
+</body>
+</html>
