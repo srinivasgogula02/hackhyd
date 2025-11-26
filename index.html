@@ -21,11 +21,13 @@
             theme: {
                 extend: {
                     colors: {
-                        'hyd-chai': '#FFD700',
+                        'hyd-chai': '#FFD700', /* Gold */
                         'hyd-teal': '#00F0FF',
                         'hyd-pink': '#FF0055',
                         'hyd-dark': '#030014', 
                         'hyd-surface': '#0F0821',
+                        'hyd-silver': '#E0E0E0',
+                        'hyd-bronze': '#CD7F32',
                     },
                     fontFamily: {
                         'display': ['"Bebas Neue"', 'sans-serif'],
@@ -66,6 +68,9 @@
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .spotlight-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.3); }
 
@@ -85,7 +90,6 @@
     <nav class="fixed w-full z-40 top-0 border-b border-white/5 bg-hyd-dark/80 backdrop-blur-xl">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                
                 <div class="flex flex-col">
                     <span class="font-tech text-white font-bold tracking-tighter leading-none">HACK_HYD</span>
                     <span class="font-tech text-[10px] text-hyd-teal leading-none">v1.0</span>
@@ -170,34 +174,99 @@
             <div class="animate-marquee font-display text-black text-sm md:text-xl tracking-widest flex items-center gap-8 min-w-full">
                 <span>CHAI // CODE // CULTURE</span><span>★</span><span>BUILD FOR HYDERABAD</span><span>★</span><span>36 HOURS NON-STOP</span><span>★</span>
                 <span>CHAI // CODE // CULTURE</span><span>★</span><span>BUILD FOR HYDERABAD</span><span>★</span><span>36 HOURS NON-STOP</span><span>★</span>
-                <span>CHAI // CODE // CULTURE</span><span>★</span><span>BUILD FOR HYDERABAD</span><span>★</span><span>36 HOURS NON-STOP</span><span>★</span>
-                <span>CHAI // CODE // CULTURE</span><span>★</span><span>BUILD FOR HYDERABAD</span><span>★</span><span>36 HOURS NON-STOP</span><span>★</span>
             </div>
         </div>
     </div>
 
     <section id="tracks" class="py-20 relative px-4">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-12">
-                <h2 class="font-display text-4xl md:text-6xl text-white mb-2">The <span class="text-hyd-teal">Arenas</span></h2>
-                <p class="font-tech text-gray-400">Choose your battlefield. Prove your code.</p>
+            
+            <div class="mb-16">
+                <h2 class="font-display text-4xl md:text-6xl text-white mb-2 text-center">Grand <span class="text-hyd-teal">Champions</span></h2>
+                <p class="font-tech text-gray-400 text-center mb-8">Compete for the ultimate glory.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto border-b border-white/10 pb-12">
+                    
+                    <div class="order-2 md:order-1 bg-white/5 border border-white/10 p-6 rounded-xl flex flex-col items-center justify-center text-center mt-0 md:mt-8">
+                        <i data-lucide="medal" class="w-8 h-8 text-hyd-silver mb-2"></i>
+                        <h3 class="font-display text-2xl text-hyd-silver">2ND PLACE</h3>
+                        <p class="font-tech text-xl text-white mt-1">₹ TBD</p>
+                    </div>
+
+                    <div class="order-1 md:order-2 bg-gradient-to-b from-hyd-chai/20 to-black/40 border border-hyd-chai p-8 rounded-xl flex flex-col items-center justify-center text-center shadow-[0_0_30px_rgba(255,215,0,0.1)] transform md:-translate-y-4">
+                        <i data-lucide="trophy" class="w-12 h-12 text-hyd-chai mb-3"></i>
+                        <h3 class="font-display text-4xl text-hyd-chai">WINNER</h3>
+                        <p class="font-tech text-3xl text-white mt-1 font-bold">₹ TBD</p>
+                    </div>
+
+                    <div class="order-3 bg-white/5 border border-white/10 p-6 rounded-xl flex flex-col items-center justify-center text-center mt-0 md:mt-8">
+                        <i data-lucide="medal" class="w-8 h-8 text-hyd-bronze mb-2"></i>
+                        <h3 class="font-display text-2xl text-hyd-bronze">3RD PLACE</h3>
+                        <p class="font-tech text-xl text-white mt-1">₹ TBD</p>
+                    </div>
+                </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="mb-8">
+                <h2 class="font-display text-3xl md:text-4xl text-white mb-2">Track <span class="text-hyd-pink">Prizes</span></h2>
+                <p class="font-tech text-gray-400">Best build in each category wins the bounty.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
                 <div class="spotlight-card p-6 rounded-xl">
-                    <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-hyd-teal"><i data-lucide="brain-circuit"></i></div>
-                    <h3 class="font-display text-2xl text-white mb-2">AI & Agents</h3>
-                    <p class="font-body text-gray-400">Build intelligent agents. Solve real problems with LLMs.</p>
+                    <div>
+                        <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-hyd-teal"><i data-lucide="brain-circuit"></i></div>
+                        <h3 class="font-display text-2xl text-white mb-2">AI & Agents</h3>
+                        <p class="font-body text-gray-400 mb-6">Build intelligent agents. Solve real problems with LLMs.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
+                        <span class="font-tech text-xs text-gray-400 uppercase tracking-widest">Track Prize</span>
+                        <span class="font-display text-xl text-hyd-teal">TBD</span>
+                    </div>
                 </div>
+
                 <div class="spotlight-card p-6 rounded-xl border-hyd-pink/50 bg-hyd-pink/5">
-                    <div class="w-12 h-12 bg-hyd-pink/10 rounded-lg flex items-center justify-center mb-6 text-hyd-pink"><i data-lucide="music"></i></div>
-                    <h3 class="font-display text-2xl text-white mb-2">Vibe Coding</h3>
-                    <p class="font-body text-gray-300">No utility? No problem. Just vibes.</p>
+                    <div>
+                        <div class="w-12 h-12 bg-hyd-pink/10 rounded-lg flex items-center justify-center mb-6 text-hyd-pink"><i data-lucide="music"></i></div>
+                        <h3 class="font-display text-2xl text-white mb-2">Vibe Coding</h3>
+                        <p class="font-body text-gray-300 mb-6">No utility? No problem. Just vibes.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white/10 flex justify-between items-center">
+                        <span class="font-tech text-xs text-gray-400 uppercase tracking-widest">Track Prize</span>
+                        <span class="font-display text-xl text-hyd-pink">TBD</span>
+                    </div>
                 </div>
+
                 <div class="spotlight-card p-6 rounded-xl">
-                    <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-hyd-teal"><i data-lucide="blocks"></i></div>
-                    <h3 class="font-display text-2xl text-white mb-2">Web3 & DeFi</h3>
-                    <p class="font-body text-gray-400">Decentralized finance and dApps.</p>
+                    <div>
+                        <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-hyd-teal"><i data-lucide="blocks"></i></div>
+                        <h3 class="font-display text-2xl text-white mb-2">Web3 & DeFi</h3>
+                        <p class="font-body text-gray-400 mb-6">Decentralized finance and dApps.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
+                        <span class="font-tech text-xs text-gray-400 uppercase tracking-widest">Track Prize</span>
+                        <span class="font-display text-xl text-hyd-teal">TBD</span>
+                    </div>
                 </div>
+
+                <div class="spotlight-card p-6 rounded-xl bg-black/40 border-dashed border-white/20 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-transparent to-black/90 z-10"></div>
+                    <div class="relative z-20 h-full flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-gray-400 group-hover:text-hyd-pink transition-colors">
+                                <i data-lucide="lock" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="font-display text-2xl text-white mb-2">SURPRISE</h3>
+                            <p class="font-body text-gray-500 mb-6 italic">[REDACTED]<br>Unlocking soon...</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
+                            <span class="font-tech text-xs text-gray-600 uppercase tracking-widest">Track Prize</span>
+                            <span class="font-display text-xl text-gray-600 group-hover:text-hyd-pink transition-colors">???</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -235,7 +304,6 @@
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">
                 <i class="ph ph-x text-xl"></i>
             </button>
-            
             <h3 class="font-display text-3xl text-white mb-2">JOIN THE <span class="text-hyd-teal">REVOLUTION</span></h3>
             <p class="font-tech text-gray-400 text-sm mb-6">Be the first to know when registrations open.</p>
             
@@ -247,7 +315,6 @@
                 <button type="submit" id="submit-btn" class="w-full bg-hyd-teal text-black font-bold font-display text-xl py-3 rounded hover:bg-white transition-colors">
                     GET EARLY ACCESS
                 </button>
-                
                 <p id="success-msg" class="hidden text-green-400 font-tech text-xs">Successfully joined the waitlist!</p>
                 <p id="error-msg" class="hidden text-red-400 font-tech text-xs">Something went wrong. Check console.</p>
                 <p id="duplicate-msg" class="hidden text-yellow-400 font-tech text-xs">You are already on the list!</p>
@@ -260,7 +327,7 @@
         const SUPABASE_URL = 'https://bhxdmfssaxtqpzfgfqfe.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoeGRtZnNzYXh0cXB6ZmdmcWZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1NDc5NDYsImV4cCI6MjA3OTEyMzk0Nn0.PYSxkl3a5Gk_atNVmIUcZX1LnPS5na7htiG8JJpdN1o';
         
-        // Initialize Supabase (Global object 'supabase' comes from CDN)
+        // Initialize Supabase
         const { createClient } = supabase; 
         const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -295,7 +362,6 @@
         if(newsForm) {
             newsForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                
                 const emailInput = document.getElementById('email-input');
                 const submitBtn = document.getElementById('submit-btn');
                 const successMsg = document.getElementById('success-msg');
@@ -306,13 +372,12 @@
                 submitBtn.innerText = "JOINING...";
                 submitBtn.disabled = true;
 
-                // Send to Supabase
                 const { data, error } = await _supabase
                     .from('subscribers')
                     .insert([{ email: emailInput.value }]);
 
                 if (error) {
-                    console.error("Supabase Error:", error); // Check Console if this happens!
+                    console.error("Supabase Error:", error);
                     if (error.code === '23505') {
                         duplicateMsg.classList.remove('hidden');
                         setTimeout(() => { duplicateMsg.classList.add('hidden'); submitBtn.innerText = "JOINED"; submitBtn.disabled = false; closeModal(); }, 2000);
