@@ -1,131 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HACK HYD | The Hyderabad Takeover</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'hyd-chai': '#FFD700', /* Gold */
-                        'hyd-teal': '#00F0FF',
-                        'hyd-pink': '#FF0055',
-                        'hyd-dark': '#030014', 
-                        'hyd-surface': '#0F0821',
-                        'hyd-silver': '#E0E0E0',
-                        'hyd-bronze': '#CD7F32',
-                    },
-                    fontFamily: {
-                        'display': ['"Bebas Neue"', 'sans-serif'],
-                        'tech': ['"JetBrains Mono"', 'monospace'],
-                        'body': ['"Rajdhani"', 'sans-serif'],
-                    },
-                    animation: {
-                        'marquee': 'marquee 25s linear infinite',
-                    },
-                    keyframes: {
-                        marquee: {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-100%)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        html { scroll-behavior: smooth; }
-        body { background-color: #030014; color: #eee; overflow-x: hidden; }
-        
-        /* Mobile Menu Transitions */
-        #mobile-menu {
-            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-        }
-        #mobile-menu.open {
-            max-height: 400px;
-            opacity: 1;
-        }
-
-        .spotlight-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .spotlight-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.3); }
-
-        .glitch-wrapper { position: relative; display: inline-block; }
-        .glitch-text::before, .glitch-text::after {
-            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
-        }
-        .glitch-text::before { color: #FF0055; z-index: -1; animation: glitch-1 3s infinite linear alternate-reverse; }
-        .glitch-text::after { color: #00F0FF; z-index: -2; animation: glitch-2 2s infinite linear alternate-reverse; }
-        
-        @keyframes glitch-1 { 0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px,0); } 100% { clip-path: inset(80% 0 5% 0); transform: translate(2px,0); } }
-        @keyframes glitch-2 { 0% { clip-path: inset(10% 0 60% 0); transform: translate(2px,0); } 100% { clip-path: inset(20% 0 50% 0); transform: translate(-2px,0); } }
-    </style>
-</head>
-<body class="selection:bg-hyd-pink selection:text-white font-body relative">
-
-    <nav class="fixed w-full z-40 top-0 border-b border-white/5 bg-hyd-dark/80 backdrop-blur-xl">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="flex flex-col">
-                    <span class="font-tech text-white font-bold tracking-tighter leading-none">HACK_HYD</span>
-                    <span class="font-tech text-[10px] text-hyd-teal leading-none">v1.0</span>
-                </div>
-            </div>
-            
-            <div class="hidden md:flex gap-8 font-tech text-xs md:text-sm tracking-wide">
-                <a href="#about" class="text-gray-400 hover:text-hyd-teal transition-colors">/ABOUT</a>
-                <a href="#tracks" class="text-gray-400 hover:text-hyd-teal transition-colors">/TRACKS</a>
-                <a href="#sponsors" class="text-gray-400 hover:text-hyd-teal transition-colors">/PARTNERS</a>
-            </div>
-
-            <div class="hidden md:block">
-                <button onclick="openModal()" class="relative group px-6 py-2 border border-hyd-pink bg-hyd-pink/10 hover:bg-hyd-pink transition-all duration-300">
-                    <span class="relative z-10 font-display text-lg tracking-wide group-hover:text-black transition-colors">JOIN WAITLIST</span>
-                </button>
-            </div>
-
-            <button id="mobile-menu-btn" class="md:hidden text-white text-2xl focus:outline-none">
-                <i class="ph ph-list"></i>
-            </button>
-        </div>
-
-        <div id="mobile-menu" class="bg-hyd-dark border-b border-white/10 md:hidden">
-            <div class="flex flex-col p-4 space-y-4 font-tech text-sm">
-                <a href="#about" class="text-gray-300 hover:text-hyd-teal">/ABOUT</a>
-                <a href="#tracks" class="text-gray-300 hover:text-hyd-teal">/TRACKS</a>
-                <a href="#sponsors" class="text-gray-300 hover:text-hyd-teal">/PARTNERS</a>
-                <button onclick="openModal()" class="w-full py-3 border border-hyd-pink bg-hyd-pink/10 text-hyd-pink font-bold uppercase">
-                    Join Waitlist
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <section id="about" class="relative min-h-[90vh] pt-32 pb-20 overflow-hidden">
+<section id="about" class="relative min-h-[90vh] pt-32 pb-20 overflow-hidden">
         <div class="absolute bottom-0 right-0 w-[85%] md:w-[60%] lg:w-[45%] opacity-40 pointer-events-none z-0">
              <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPfN_rKpqpufpgonOLLUy2kcaq-R9xMU2APWRgmVtEJrk8Bd3UutFwH4H3ubj_b8pZsuRJ3YhEmZ6PLAtIf50znGtRv1e081pQKye1B0Uqga74EZdR4z8i1CsGQ7Mj2UlNDg0KOOLP2QM9SYi2QzijgdOEdu4M4C69Qt3buB3gw5o_4qIwG4SOyHkfjRA/s320/pngwing.com.png" alt="Charminar" class="w-full h-auto object-contain object-right-bottom drop-shadow-[0_0_20px_rgba(255,0,85,0.4)]">
         </div>
@@ -156,7 +29,7 @@
                 </button>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 max-w-3xl mx-auto mb-12">
+            <div class="grid grid-cols-2 gap-4 max-w-3xl mx-auto mb-6">
                  <div class="bg-white/5 border border-white/10 p-4 rounded-lg backdrop-blur-sm">
                     <p class="font-tech text-xs text-gray-500 mb-1">PRIZE POOL</p>
                     <p class="font-display text-2xl text-hyd-chai">₹5 Lakh+</p>
@@ -168,240 +41,44 @@
                     <p class="font-tech text-[10px] text-gray-400 leading-none mt-1">For all Students</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <div class="py-3 bg-hyd-chai border-y border-black overflow-hidden z-20 relative">
-        <div class="whitespace-nowrap flex overflow-hidden">
-            <div class="animate-marquee font-display text-black text-sm md:text-xl tracking-widest flex items-center gap-8 min-w-full">
-                <span>CHAI // CODE // CULTURE</span><span>★</span><span>BUILD FOR HYDERABAD</span><span>★</span><span>24 HOURS NON-STOP</span><span>★</span>
-                <span>CHAI // CODE // CULTURE</span><span>★</span><span>BUILD FOR HYDERABAD</span><span>★</span><span>24 HOURS NON-STOP</span><span>★</span>
-            </div>
-        </div>
-    </div>
-
-    <section id="tracks" class="py-20 relative px-4">
-        <div class="max-w-7xl mx-auto">
-            
-            <div class="mb-16">
-                <h2 class="font-display text-4xl md:text-6xl text-white mb-2 text-center">Grand <span class="text-hyd-teal">Champions</span></h2>
-                <p class="font-tech text-gray-400 text-center mb-8">Compete for the ultimate glory.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto border-b border-white/10 pb-12">
-                    
-                    <div class="order-2 md:order-1 bg-white/5 border border-white/10 p-6 rounded-xl flex flex-col items-center justify-center text-center mt-0 md:mt-8">
-                        <i data-lucide="medal" class="w-8 h-8 text-hyd-silver mb-2"></i>
-                        <h3 class="font-display text-2xl text-hyd-silver">2ND PLACE</h3>
-                        <p class="font-tech text-xl text-white mt-1">₹ TBD</p>
-                    </div>
-
-                    <div class="order-1 md:order-2 bg-gradient-to-b from-hyd-chai/20 to-black/40 border border-hyd-chai p-8 rounded-xl flex flex-col items-center justify-center text-center shadow-[0_0_30px_rgba(255,215,0,0.1)] transform md:-translate-y-4">
-                        <i data-lucide="trophy" class="w-12 h-12 text-hyd-chai mb-3"></i>
-                        <h3 class="font-display text-4xl text-hyd-chai">WINNER</h3>
-                        <p class="font-tech text-3xl text-white mt-1 font-bold">₹ TBD</p>
-                    </div>
-
-                    <div class="order-3 bg-white/5 border border-white/10 p-6 rounded-xl flex flex-col items-center justify-center text-center mt-0 md:mt-8">
-                        <i data-lucide="medal" class="w-8 h-8 text-hyd-bronze mb-2"></i>
-                        <h3 class="font-display text-2xl text-hyd-bronze">3RD PLACE</h3>
-                        <p class="font-tech text-xl text-white mt-1">₹ TBD</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mb-8">
-                <h2 class="font-display text-3xl md:text-4xl text-white mb-2">Track <span class="text-hyd-pink">Prizes</span></h2>
-                <p class="font-tech text-gray-400">Best build in each category wins the bounty.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="max-w-3xl mx-auto bg-gradient-to-r from-hyd-teal/10 via-hyd-dark to-hyd-teal/10 border border-hyd-teal/30 p-6 rounded-xl backdrop-blur-md relative overflow-hidden group">
+                <div class="absolute inset-0 bg-hyd-teal/5 opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div class="spotlight-card p-6 rounded-xl">
-                    <div>
-                        <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-hyd-teal"><i data-lucide="brain-circuit"></i></div>
-                        <h3 class="font-display text-2xl text-white mb-2">AI & Agents</h3>
-                        <p class="font-body text-gray-400 mb-6">Build intelligent agents. Solve real problems with LLMs.</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                        <span class="font-tech text-xs text-gray-400 uppercase tracking-widest">Track Prize</span>
-                        <span class="font-display text-xl text-hyd-teal">TBD</span>
-                    </div>
-                </div>
-
-                <div class="spotlight-card p-6 rounded-xl border-hyd-pink/50 bg-hyd-pink/5">
-                    <div>
-                        <div class="w-12 h-12 bg-hyd-pink/10 rounded-lg flex items-center justify-center mb-6 text-hyd-pink"><i data-lucide="music"></i></div>
-                        <h3 class="font-display text-2xl text-white mb-2">Vibe Coding</h3>
-                        <p class="font-body text-gray-300 mb-6">No utility? No problem. Just vibes.</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-white/10 flex justify-between items-center">
-                        <span class="font-tech text-xs text-gray-400 uppercase tracking-widest">Track Prize</span>
-                        <span class="font-display text-xl text-hyd-pink">TBD</span>
-                    </div>
-                </div>
-
-                <div class="spotlight-card p-6 rounded-xl">
-                    <div>
-                        <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-hyd-teal"><i data-lucide="blocks"></i></div>
-                        <h3 class="font-display text-2xl text-white mb-2">Web3 & DeFi</h3>
-                        <p class="font-body text-gray-400 mb-6">Decentralized finance and dApps.</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                        <span class="font-tech text-xs text-gray-400 uppercase tracking-widest">Track Prize</span>
-                        <span class="font-display text-xl text-hyd-teal">TBD</span>
-                    </div>
-                </div>
-
-                <div class="spotlight-card p-6 rounded-xl bg-black/40 border-dashed border-white/20 relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-gradient-to-br from-transparent to-black/90 z-10"></div>
-                    <div class="relative z-20 h-full flex flex-col justify-between">
+                <p class="relative font-tech text-xs text-hyd-teal uppercase tracking-[0.2em] mb-4">Every Participant Gets</p>
+                
+                <div class="relative grid grid-cols-1 md:grid-cols-3 gap-6 items-start text-left md:text-center">
+                    <div class="flex flex-row md:flex-col items-center gap-4">
+                        <div class="w-10 h-10 rounded bg-black/50 flex items-center justify-center text-hyd-silver border border-white/10 shrink-0">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                        </div>
                         <div>
-                            <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-gray-400 group-hover:text-hyd-pink transition-colors">
-                                <i data-lucide="lock" class="w-6 h-6"></i>
-                            </div>
-                            <h3 class="font-display text-2xl text-white mb-2">SURPRISE</h3>
-                            <p class="font-body text-gray-500 mb-6 italic">[REDACTED]<br>Unlocking soon...</p>
+                            <p class="font-display text-lg text-white">Free .XYZ Domain</p>
+                            <p class="font-tech text-[10px] text-gray-400">1 Year Validity</p>
                         </div>
-                        <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                            <span class="font-tech text-xs text-gray-600 uppercase tracking-widest">Track Prize</span>
-                            <span class="font-display text-xl text-gray-600 group-hover:text-hyd-pink transition-colors">???</span>
+                    </div>
+
+                    <div class="flex flex-row md:flex-col items-center gap-4">
+                        <div class="w-10 h-10 rounded bg-black/50 flex items-center justify-center text-hyd-silver border border-white/10 shrink-0">
+                            <i data-lucide="book-open" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="font-display text-lg text-white">Principles of Building</p>
+                            <p class="font-tech text-[10px] text-gray-400">AI Agents (Book)</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-row md:flex-col items-center gap-4">
+                         <div class="w-10 h-10 rounded bg-black/50 flex items-center justify-center text-hyd-silver border border-white/10 shrink-0">
+                            <i data-lucide="library" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="font-display text-lg text-white">Patterns for Building</p>
+                            <p class="font-tech text-[10px] text-gray-400">AI Agents (Book)</p>
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
     </section>
-
-    <section id="sponsors" class="py-20 bg-hyd-surface border-y border-white/5 px-4">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="font-display text-4xl md:text-6xl text-white mb-4">Our <span class="text-hyd-chai">Backers</span></h2>
-            
-            <div class="mt-12 mb-16">
-                <p class="font-tech text-xs text-hyd-teal uppercase mb-4 tracking-widest">Knowledge Partner</p>
-                <a href="https://mastra.ai" target="_blank" class="block max-w-3xl mx-auto border border-white/10 bg-white/5 rounded-xl group hover:border-hyd-teal/50 hover:bg-hyd-teal/5 transition-all duration-300 overflow-hidden">
-                    <div class="p-12 flex items-center justify-center text-gray-400 group-hover:text-white transition-colors duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 131 32" class="w-64 md:w-80 h-auto">
-                            <path fill="currentColor" d="M5 17.3a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9m5.9-11.6a4.5 4.5 0 0 1 4.4 5.4c-.3 1.4-.6 3 .2 4.2l1.3 1.9.3.2.3-.2 1.3-1.9c.8-1.2.5-2.7.2-4.1a4.5 4.5 0 1 1 8.8.1c-.3 1.3-.6 2.7 0 3.9l1.3 2v.1a4.5 4.5 0 1 1-4.3 3.4c.3-1.3.6-2.7 0-3.9l-1.2-2h-.2L22 16.5c-.8 1.2-.5 2.8-.2 4.2a4.5 4.5 0 1 1-8.8.3q.5-2-.4-3.8l-.9-1.3q-.9-1.2-2.4-1.6a4.5 4.5 0 0 1 1.6-8.7M56.6 22v-6.9q0-1-.7-1.7t-1.7-.7q-1.3 0-2.1 1T51 16v6h-2.8V10.6h2.9v2.2q.6-1 1.6-1.8 1-.6 2.5-.7 1.2 0 2.3.7t1.5 1.8q.6-1.2 1.7-1.8a5 5 0 0 1 2.5-.7q2 0 3.1 1.2 1.3 1.2 1.3 3.2V22h-3v-6.6q0-1.4-.6-2t-1.7-.7q-1.2 0-2.1.9t-.9 2.3V22zm18.6.3q-1.5 0-3-.7a6 6 0 0 1-2-2.2q-.7-1.5-.7-3 0-1.8.7-3.2a6 6 0 0 1 5-3q1.4 0 2.6.7t1.8 1.6v-1.9h3V22h-3v-2q-.6 1.2-1.8 1.8-1.2.5-2.6.5M76 20q1.6 0 2.6-1t1-2.7-1-2.7-2.6-1-2.6 1-1 2.7 1 2.7 2.6 1m14 2.3a7 7 0 0 1-4.1-1q-1.5-1.2-1.6-3L87 18q0 1 .8 1.6t2.2.7a3 3 0 0 0 1.7-.5q.7-.4.7-1a1 1 0 0 0-.6-1l-1.4-.6-3.8-.9q-.8-.3-1.4-.9t-.6-1.7q0-1.6 1.4-2.6t3.8-1 3.6 1a3 3 0 0 1 1.6 2.5l-2.8.1q0-.6-.6-1.2t-1.8-.5q-1 0-1.7.4t-.6 1 .6 1l1.5.4 3.7.9q.8.3 1.5 1 .5.6.5 1.7 0 1.8-1.4 2.8-1.5 1-4 1m12.6 0q-1.9 0-3-1a4 4 0 0 1-1.2-2.8v-5.7h-2.5v-2.2h2.5V7.2h2.9v3.4h3.7v2.2h-3.7V18q0 1 .4 1.4.5.5 1.3.5l1-.2.9-.6.4 2.4q-.3.3-1.1.5-.7.2-1.6.2m4.3-.3V10.6h2.9V13q.5-1.2 1.5-2a4 4 0 0 1 4.2-.4l-.3 2.8-.9-.4-1-.2-1 .2q-.7.2-1.2.6t-1 1.2q-.3.7-.3 2V22zm14.7.3q-1.6 0-3-.7a6 6 0 0 1-2-2.2q-.8-1.5-.8-3 0-1.8.7-3.2a6 6 0 0 1 5-3q1.5 0 2.6.7t1.9 1.6v-1.9h2.9V22h-3v-2q-.6 1.2-1.8 1.8-1.1.5-2.5.5m.7-2.3q1.6 0 2.6-1t1-2.7-1-2.7-2.6-1-2.6 1-1 2.7 1 2.7 2.6 1"/>
-                        </svg>
-                    </div>
-                </a>
-            </div>
-
-            <a href="sponsors.html" class="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-display text-xl hover:bg-hyd-teal transition-all">
-                BECOME A SPONSOR <i data-lucide="arrow-right" class="w-5 h-5"></i>
-            </a>
-        </div>
-    </section>
-
-    <footer class="bg-black border-t border-white/10 py-12 px-4 text-center md:text-left">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
-                <h2 class="font-display text-3xl text-white">HACK <span class="text-hyd-teal">HYD</span></h2>
-                <p class="font-tech text-xs text-gray-500 mt-2">© 2025 HACK HYD ORG.</p>
-            </div>
-            <div class="flex gap-6">
-                <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <div id="waitlist-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
-        <div class="bg-hyd-surface w-full max-w-md p-8 rounded-xl border border-hyd-teal shadow-[0_0_30px_rgba(0,240,255,0.2)] relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">
-                <i class="ph ph-x text-xl"></i>
-            </button>
-            <h3 class="font-display text-3xl text-white mb-2">JOIN THE <span class="text-hyd-teal">REVOLUTION</span></h3>
-            <p class="font-tech text-gray-400 text-sm mb-6">Be the first to know when registrations open.</p>
-            
-            <form id="supabase-newsletter-form" class="space-y-4">
-                <div>
-                    <input type="email" id="email-input" placeholder="enter_your@email.com" required 
-                           class="w-full bg-black/50 border border-white/20 text-white px-4 py-3 rounded focus:outline-none focus:border-hyd-teal font-tech placeholder-gray-600">
-                </div>
-                <button type="submit" id="submit-btn" class="w-full bg-hyd-teal text-black font-bold font-display text-xl py-3 rounded hover:bg-white transition-colors">
-                    GET EARLY ACCESS
-                </button>
-                <p id="success-msg" class="hidden text-green-400 font-tech text-xs">Successfully joined the waitlist!</p>
-                <p id="error-msg" class="hidden text-red-400 font-tech text-xs">Something went wrong. Check console.</p>
-                <p id="duplicate-msg" class="hidden text-yellow-400 font-tech text-xs">You are already on the list!</p>
-            </form>
-        </div>
-    </div>
-
-    <script type="text/javascript">
-        // --- 1. CONFIGURATION ---
-        const SUPABASE_URL = 'https://bhxdmfssaxtqpzfgfqfe.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoeGRtZnNzYXh0cXB6ZmdmcWZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1NDc5NDYsImV4cCI6MjA3OTEyMzk0Nn0.PYSxkl3a5Gk_atNVmIUcZX1LnPS5na7htiG8JJpdN1o';
-        
-        // Initialize Supabase
-        const { createClient } = supabase; 
-        const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // --- 2. MODAL LOGIC ---
-        const modal = document.getElementById('waitlist-modal');
-        function openModal() { modal.classList.remove('hidden'); }
-        function closeModal() { modal.classList.add('hidden'); }
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-
-        // --- 3. MOBILE MENU ---
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        if(btn && menu) {
-            const icon = btn.querySelector('i');
-            const links = menu.querySelectorAll('a');
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('open');
-                icon.classList.toggle('ph-list');
-                icon.classList.toggle('ph-x');
-            });
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    menu.classList.remove('open');
-                    icon.classList.add('ph-list');
-                    icon.classList.remove('ph-x');
-                });
-            });
-        }
-
-        // --- 4. SUPABASE FORM LOGIC ---
-        const newsForm = document.getElementById('supabase-newsletter-form');
-        if(newsForm) {
-            newsForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const emailInput = document.getElementById('email-input');
-                const submitBtn = document.getElementById('submit-btn');
-                const successMsg = document.getElementById('success-msg');
-                const errorMsg = document.getElementById('error-msg');
-                const duplicateMsg = document.getElementById('duplicate-msg');
-                const originalText = submitBtn.innerText;
-
-                submitBtn.innerText = "JOINING...";
-                submitBtn.disabled = true;
-
-                const { data, error } = await _supabase
-                    .from('subscribers')
-                    .insert([{ email: emailInput.value }]);
-
-                if (error) {
-                    console.error("Supabase Error:", error);
-                    if (error.code === '23505') {
-                        duplicateMsg.classList.remove('hidden');
-                        setTimeout(() => { duplicateMsg.classList.add('hidden'); submitBtn.innerText = "JOINED"; submitBtn.disabled = false; closeModal(); }, 2000);
-                    } else {
-                        errorMsg.classList.remove('hidden');
-                        setTimeout(() => { errorMsg.classList.add('hidden'); submitBtn.innerText = originalText; submitBtn.disabled = false; }, 3000);
-                    }
-                } else {
-                    successMsg.classList.remove('hidden');
-                    emailInput.value = '';
-                    setTimeout(() => { successMsg.classList.add('hidden'); submitBtn.innerText = "JOINED"; submitBtn.disabled = false; closeModal(); }, 2000);
-                }
-            });
-        }
-
-        lucide.createIcons();
-    </script>
-</body>
-</html>
